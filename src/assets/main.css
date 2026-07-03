@@ -1,0 +1,128 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Archivo:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+:root {
+  /* Color — paper + ink + circuit-copper, not the default cream/terracotta pairing */
+  --bg-paper: #eae5d8;
+  --bg-card: #f2efe5;
+  --ink: #17170f;
+  --ink-soft: #55554a;
+  --ink-faint: #8b8a7c;
+  --line: rgba(23, 23, 15, 0.16);
+  --line-strong: rgba(23, 23, 15, 0.9);
+  --accent-copper: #b5642c;
+  --accent-signal: #2f6b3c;
+
+  /* Type */
+  --font-display: 'Fraunces', 'Iowan Old Style', serif;
+  --font-body: 'Archivo', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'IBM Plex Mono', 'SFMono-Regular', Menlo, monospace;
+
+  /* Layout */
+  --content-width: 1080px;
+  --edge: clamp(1.25rem, 4vw, 3rem);
+}
+
+/* Dark theme — "PCB night mode": dark board, warm copper + phosphor-green accents.
+   Toggled by setting data-theme="dark" on <html> (see useTheme.js). */
+html[data-theme='dark'] {
+  --bg-paper: #14140f;
+  --bg-card: #1c1c15;
+  --ink: #eae5d8;
+  --ink-soft: #a9a696;
+  --ink-faint: #6c6a5c;
+  --line: rgba(234, 229, 216, 0.14);
+  --line-strong: rgba(234, 229, 216, 0.82);
+  --accent-copper: #e0904a;
+  --accent-signal: #4fdd76;
+}
+
+body {
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--bg-paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  line-height: 1.05;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+}
+
+button {
+  font-family: inherit;
+}
+
+::selection {
+  background: var(--accent-copper);
+  color: var(--bg-paper);
+}
+
+/* Visible keyboard focus everywhere */
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--accent-copper);
+  outline-offset: 3px;
+}
+
+.container {
+  max-width: var(--content-width);
+  margin: 0 auto;
+  padding-left: var(--edge);
+  padding-right: var(--edge);
+}
+
+.mono-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.hairline {
+  border: none;
+  border-top: 1px solid var(--line);
+  margin: 0;
+}
