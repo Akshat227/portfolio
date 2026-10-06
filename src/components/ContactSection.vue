@@ -1,20 +1,33 @@
 <script setup>
+import { computed } from 'vue'
 import SectionHeading from './SectionHeading.vue'
-import { profile } from '../data/profile.js'
+import { useSiteContent } from '../composables/useSiteContent.js'
 
-const contactLinks = [
-  { label: 'Email', value: 'Send a message', href: profile.links.email },
-  { label: 'GitHub', value: profile.links.github.replace('https://', ''), href: profile.links.github },
-  { label: 'Website', value: profile.links.website.replace('https://', ''), href: profile.links.website },
-].filter((l) => l.href)
+const { profile } = useSiteContent()
+
+const contactLinks = computed(() =>
+  [
+    { label: 'Email', value: 'Send a message', href: profile.value.links.email },
+    {
+      label: 'GitHub',
+      value: (profile.value.links.github || '').replace(/^https?:\/\//, ''),
+      href: profile.value.links.github,
+    },
+    {
+      label: 'Website',
+      value: (profile.value.links.website || '').replace(/^https?:\/\//, ''),
+      href: profile.value.links.website,
+    },
+  ].filter((link) => link.href),
+)
 </script>
 
 <template>
-  <section id="contact" class="contact container">
-    <SectionHeading index="03" label="CONTACT" title="Let's build something" />
+  <section id="contact" class="contact container" data-reveal>
+    <SectionHeading index="03" label="CONTACT" :title="profile.contactTitle" />
 
     <p class="contact__intro">
-      Open to collaborations, internships, and hardware-flavored problems worth losing sleep over.
+      {{ profile.contactIntro }}
     </p>
 
     <ul class="contact__list">
@@ -30,14 +43,14 @@ const contactLinks = [
 
 <style scoped>
 .contact {
-  padding-top: clamp(3rem, 7vw, 5rem);
-  padding-bottom: clamp(4rem, 9vw, 6rem);
+  padding-top: clamp(2.5rem, 7vw, 5rem);
+  padding-bottom: clamp(3rem, 9vw, 6rem);
 }
 
 .contact__intro {
   max-width: 48ch;
   color: var(--ink-soft);
-  font-size: 1.05rem;
+  font-size: clamp(0.98rem, 2.2vw, 1.05rem);
   margin-bottom: 2.5rem;
 }
 
@@ -58,9 +71,10 @@ const contactLinks = [
   justify-content: space-between;
   gap: 1rem;
   padding: 1.1rem 0;
+  min-height: 52px;
   text-decoration: none;
   color: var(--ink);
-  transition: color 0.15s ease;
+  transition: color 0.2s ease, padding-left 0.2s ease;
 }
 
 .contact__link:hover {
@@ -74,7 +88,27 @@ const contactLinks = [
 
 .contact__value {
   font-family: var(--font-display);
-  font-size: 1.15rem;
+  font-size: clamp(1.02rem, 3.2vw, 1.15rem);
   text-align: right;
+  overflow-wrap: anywhere;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .contact__link:hover {
+    padding-left: 0.35rem;
+  }
+}
+
+@media (max-width: 560px) {
+  .contact__link {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.3rem;
+    padding: 1rem 0;
+  }
+
+  .contact__value {
+    text-align: left;
+  }
 }
 </style>

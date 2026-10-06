@@ -1,18 +1,22 @@
-import { ref, onMounted, onUnmounted } from 'vue'
+import { unref, ref, onMounted, onUnmounted, watch } from 'vue'
 
 /**
  * Tracks which section id is currently in view, for nav highlighting.
- * @param {string[]} sectionIds - ids of sections to observe, in document order
+ * @param {string[] | import('vue').Ref<string[]>} sectionIds
  * @param {number} offset - px offset from top to account for a sticky header
  */
 export function useScrollSpy(sectionIds, offset = 96) {
-  const activeId = ref(sectionIds[0] ?? '')
+  const activeId = ref('')
+
+  const ids = () => unref(sectionIds) ?? []
 
   const handleScroll = () => {
+    const list = ids()
+    if (!list.length) return
     const scrollPos = window.scrollY + offset
 
-    let current = sectionIds[0]
-    for (const id of sectionIds) {
+    let current = list[0]
+    for (const id of list) {
       const el = document.getElementById(id)
       if (!el) continue
       if (el.offsetTop <= scrollPos) {
@@ -30,6 +34,8 @@ export function useScrollSpy(sectionIds, offset = 96) {
   onUnmounted(() => {
     window.removeEventListener('scroll', handleScroll)
   })
+
+  watch(sectionIds, handleScroll, { deep: true })
 
   return { activeId }
 }

@@ -18,6 +18,8 @@ export const projects = [
     stack: ['C++', 'raylib', 'Digital Logic'],
     githubUrl: 'https://github.com/Akshat227/gatesim',
     demoUrl: '',
+    imageUrl: '',
+    videoUrl: '',
   },
   {
     id: 'seo-energy-monitor',
@@ -31,6 +33,8 @@ export const projects = [
     stack: ['ESP32', 'C++', 'raylib', 'Embedded'],
     githubUrl: 'https://github.com/Akshat227/seo-energy-monitor',
     demoUrl: '',
+    imageUrl: '',
+    videoUrl: '',
   },
   {
     id: 'minimal-vcs',
@@ -44,6 +48,8 @@ export const projects = [
     stack: ['C++', 'SHA-256', 'Filesystem'],
     githubUrl: 'https://github.com/Akshat227/minimal-vcs',
     demoUrl: '',
+    imageUrl: '',
+    videoUrl: '',
   },
   {
     id: 'whatsapp-scheduler',
@@ -57,6 +63,8 @@ export const projects = [
     stack: ['Node.js', 'whatsapp-web.js'],
     githubUrl: 'https://github.com/Akshat227/whatsapp-scheduler',
     demoUrl: '',
+    imageUrl: '',
+    videoUrl: '',
   },
   {
     id: 'upi-esp32-receipt',
@@ -70,6 +78,8 @@ export const projects = [
     stack: ['C++', 'ESP32', 'HTTP'],
     githubUrl: 'https://github.com/Akshat227/upi-esp32-receipt',
     demoUrl: '',
+    imageUrl: '',
+    videoUrl: '',
   },
 ]
 

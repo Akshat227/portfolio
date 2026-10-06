@@ -28,4 +28,14 @@ export const profile = {
   },
 
   resumeUrl: '', // add a link or /resume.pdf in /public if you want a download button
+  heroImageUrl: '',
+  heroVideoUrl: '',
+  heroEyebrow: 'PORTFOLIO — REV.',
+  heroStatus: 'Open to interesting problems',
+  contactIntro:
+    'Open to collaborations, internships, and hardware-flavored problems worth losing sleep over.',
+  footerNote: 'Co-Founded: The Alpha Ones | SoilGrid',
+  aboutTitle: "Who's building this",
+  projectsTitle: 'Selected builds',
+  contactTitle: "Let's build something",
 }

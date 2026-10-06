@@ -1,11 +1,13 @@
 <script setup>
 import SectionHeading from './SectionHeading.vue'
-import { profile } from '../data/profile.js'
+import { useSiteContent } from '../composables/useSiteContent.js'
+
+const { profile } = useSiteContent()
 </script>
 
 <template>
-  <section id="about" class="about container">
-    <SectionHeading index="01" label="ABOUT" title="Who's building this" />
+  <section id="about" class="about container" data-reveal>
+    <SectionHeading index="01" label="ABOUT" :title="profile.aboutTitle" />
 
     <div class="about__grid">
       <div class="about__bio">
@@ -38,18 +40,18 @@ import { profile } from '../data/profile.js'
 
 <style scoped>
 .about {
-  padding-top: clamp(3rem, 7vw, 5rem);
-  padding-bottom: clamp(3rem, 7vw, 5rem);
+  padding-top: clamp(2.5rem, 7vw, 5rem);
+  padding-bottom: clamp(2.5rem, 7vw, 5rem);
 }
 
 .about__grid {
   display: grid;
-  grid-template-columns: 1.4fr 1fr;
-  gap: clamp(2rem, 6vw, 4rem);
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: clamp(1.5rem, 6vw, 4rem);
 }
 
 .about__para {
-  font-size: 1.05rem;
+  font-size: clamp(0.98rem, 2.2vw, 1.05rem);
   color: var(--ink-soft);
   max-width: 60ch;
 }
@@ -61,6 +63,7 @@ import { profile } from '../data/profile.js'
 .about__resume {
   display: inline-block;
   margin-top: 1.5rem;
+  min-height: 44px;
   color: var(--accent-copper);
   text-decoration: none;
 }
@@ -73,6 +76,7 @@ import { profile } from '../data/profile.js'
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  min-width: 0;
 }
 
 .skill-group {
@@ -106,7 +110,7 @@ import { profile } from '../data/profile.js'
 
 @media (max-width: 760px) {
   .about__grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 </style>

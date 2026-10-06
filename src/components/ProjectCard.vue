@@ -1,4 +1,6 @@
 <script setup>
+import MediaEmbed from './MediaEmbed.vue'
+
 defineProps({
   project: { type: Object, required: true },
   index: { type: Number, required: true },
@@ -6,12 +8,20 @@ defineProps({
 </script>
 
 <template>
-  <article class="project-card">
+  <article class="project-card" data-reveal :data-reveal-delay="String((index % 3) + 1)">
     <div class="project-card__top">
       <span class="mono-label project-card__index">NO. {{ String(index + 1).padStart(2, '0') }}</span>
       <span v-if="project.pinned" class="mono-label project-card__pin">FEATURED</span>
       <span class="mono-label project-card__year">{{ project.year }}</span>
     </div>
+
+    <MediaEmbed
+      v-if="project.videoUrl || project.imageUrl"
+      class="project-card__media"
+      :image-url="project.imageUrl"
+      :video-url="project.videoUrl"
+      :alt="project.title"
+    />
 
     <h3 class="project-card__title">{{ project.title }}</h3>
     <p class="project-card__tagline">{{ project.tagline }}</p>
@@ -48,10 +58,20 @@ defineProps({
 .project-card {
   border: 1px solid var(--line-strong);
   background: var(--bg-card);
-  padding: 1.5rem;
+  padding: 1.25rem;
   display: flex;
   flex-direction: column;
   height: 100%;
+  min-width: 0;
+  transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .project-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--accent-copper);
+    box-shadow: 0 10px 24px rgba(23, 23, 15, 0.08);
+  }
 }
 
 .project-card__top {
@@ -59,6 +79,7 @@ defineProps({
   align-items: center;
   gap: 0.75rem;
   margin-bottom: 1rem;
+  min-width: 0;
 }
 
 .project-card__index {
@@ -74,9 +95,18 @@ defineProps({
   color: var(--ink-faint);
 }
 
+.project-card__media {
+  margin-bottom: 1rem;
+}
+
+.project-card__media :deep(.media__el) {
+  max-height: 180px;
+}
+
 .project-card__title {
-  font-size: 1.3rem;
+  font-size: clamp(1.15rem, 3vw, 1.3rem);
   margin-bottom: 0.4rem;
+  overflow-wrap: anywhere;
 }
 
 .project-card__tagline {
@@ -108,6 +138,7 @@ defineProps({
 
 .project-card__links {
   display: flex;
+  flex-wrap: wrap;
   gap: 1.25rem;
 }
 
@@ -116,10 +147,20 @@ defineProps({
   text-decoration: none;
   border-bottom: 1px solid var(--line-strong);
   padding-bottom: 2px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  transition: color 0.2s ease, border-color 0.2s ease;
 }
 
 .project-card__link:hover {
   color: var(--accent-copper);
   border-color: var(--accent-copper);
+}
+
+@media (max-width: 480px) {
+  .project-card {
+    padding: 1.1rem;
+  }
 }
 </style>
