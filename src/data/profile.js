@@ -5,7 +5,7 @@ export const profile = {
   role: 'Engineering Student',
   tagline: 'I design circuits, then argue with them until they behave.',
   location: 'Greater Noida, IN',
-  affiliation: 'B.Tech, ECE-VLSI — NIET',
+  affiliation: 'B.Tech · ECE — NIET',
 
   // Short bio for the About section. Plain paragraphs, one per array item.
   bio: [
@@ -15,23 +15,21 @@ export const profile = {
 
   skills: [
     { label: 'Languages', items: ['C', 'C++', 'Python', 'Rust', 'Go', 'JavaScript'] },
-    { label: 'Hardware', items: ['ESP32', 'Electronic Basics', 'CAD', 'Power Source Systems' , 'Analog', 'Digital'] },
-    { label: 'Tools', items: ['Linux (Arch)', 'Onshape', 'Vue', 'Node.js', 'raylib', 'Blender', 'AutoCAD', 'Unity', 'SDL2/3'  ] },
+    { label: 'Hardware', items: ['ESP32', 'Electronic Basics', 'CAD', 'Power Source Systems', 'Analog', 'Digital'] },
+    { label: 'Tools', items: ['Linux (Arch)', 'Onshape', 'Vue', 'Node.js', 'raylib', 'Blender', 'AutoCAD', 'Unity', 'SDL2/3'] },
   ],
 
   links: {
     github: 'https://github.com/Akshat227',
     website: 'https://taohq.org',
-    // Opens Gmail's compose window directly (in a new tab) instead of the
-    // visitor's default mail app. Swap in your real address + subject line.
     email: 'https://mail.google.com/mail/?view=cm&fs=1&to=akshatkhare364@gmail.com&su=Hey%20Akshat',
   },
 
   resumeUrl: '', // add a link or /resume.pdf in /public if you want a download button
   heroImageUrl: '',
   heroVideoUrl: '',
-  heroEyebrow: 'PORTFOLIO — REV.',
-  heroStatus: 'Open to interesting problems',
+  heroEyebrow: 'PORTFOLIO — REV. 2026',
+  heroStatus: '● OPEN TO BUILD / 2026',
   contactIntro:
     'Open to collaborations, internships, and hardware-flavored problems worth losing sleep over.',
   footerNote: 'Co-Founded: The Alpha Ones | SoilGrid',
@@ -39,3 +37,4 @@ export const profile = {
   projectsTitle: 'Selected builds',
   contactTitle: "Let's build something",
 }
+

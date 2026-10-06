@@ -6,6 +6,7 @@ import HeroSection from './components/HeroSection.vue'
 import AboutSection from './components/AboutSection.vue'
 import ProjectsSection from './components/ProjectsSection.vue'
 import ContactSection from './components/ContactSection.vue'
+import ScrollIndicator from './components/ScrollIndicator.vue'
 import AppFooter from './components/AppFooter.vue'
 import { useReveal } from './composables/useReveal.js'
 
@@ -27,6 +28,7 @@ watch(
 
 <template>
   <AppHeader />
+  <ScrollIndicator />
   <main>
     <HeroSection />
     <ExtraSection v-for="section in afterHero" :key="section.id" :section="section" />

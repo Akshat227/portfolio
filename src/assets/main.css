@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Archivo:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
 
 :root {
-  /* Color — paper + ink + circuit-copper, not the default cream/terracotta pairing */
+  /* Color — paper + ink + circuit-copper */
   --bg-paper: #eae5d8;
   --bg-card: #f2efe5;
   --ink: #17170f;
@@ -12,19 +12,21 @@
   --accent-copper: #b5642c;
   --accent-signal: #2f6b3c;
 
+  /* Subtle technical background grid overlay specs */
+  --grid-opacity: 0.035;
+
   /* Type */
   --font-display: 'Fraunces', 'Iowan Old Style', serif;
   --font-body: 'Archivo', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: 'IBM Plex Mono', 'SFMono-Regular', Menlo, monospace;
 
   /* Layout */
-  --content-width: 1080px;
-  --edge: max(1rem, min(4vw, 3rem));
-  --header-h: 64px;
+  --content-width: 1120px;
+  --edge: max(1.25rem, min(4.5vw, 3.5rem));
+  --header-h: 68px;
 }
 
-/* Dark theme — "PCB night mode": dark board, warm copper + phosphor-green accents.
-   Toggled by setting data-theme="dark" on <html> (see useTheme.js). */
+/* Dark theme — "PCB night mode": dark board, warm copper + phosphor-green accents. */
 html[data-theme='dark'] {
   --bg-paper: #14140f;
   --bg-card: #1c1c15;
@@ -35,6 +37,7 @@ html[data-theme='dark'] {
   --line-strong: rgba(234, 229, 216, 0.82);
   --accent-copper: #e0904a;
   --accent-signal: #4fdd76;
+  --grid-opacity: 0.045;
 }
 
 * {
@@ -66,14 +69,30 @@ html {
 
 body {
   margin: 0;
-  background: var(--bg-paper);
+  background-color: var(--bg-paper);
   color: var(--ink);
   font-family: var(--font-body);
   font-size: 16px;
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
   overflow-x: clip;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  transition: background-color 0.25s ease, color 0.25s ease;
+  position: relative;
+}
+
+/* Subtle Technical Background Grid: 40-60px engineering grid + dots */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: 
+    radial-gradient(var(--ink) 0.8px, transparent 0.8px),
+    linear-gradient(to right, var(--line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--line) 1px, transparent 1px);
+  background-size: 48px 48px, 48px 48px, 48px 48px;
+  opacity: var(--grid-opacity);
 }
 
 body.nav-lock {
@@ -145,10 +164,10 @@ button:focus-visible {
 
 [data-reveal] {
   opacity: 0;
-  transform: translateY(16px);
+  transform: translateY(18px);
   transition:
-    opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 [data-reveal].is-revealed {
@@ -164,7 +183,7 @@ button:focus-visible {
 
 @media (max-width: 720px) {
   :root {
-    --header-h: 56px;
+    --header-h: 58px;
     --edge: 1rem;
   }
 }

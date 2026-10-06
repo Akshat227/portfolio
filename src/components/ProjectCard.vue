@@ -39,7 +39,8 @@ defineProps({
         rel="noopener"
         class="project-card__link mono-label"
       >
-        ↗ Source
+        <span>Source</span>
+        <span class="project-card__arrow">↗</span>
       </a>
       <a
         v-if="project.demoUrl"
@@ -48,7 +49,8 @@ defineProps({
         rel="noopener"
         class="project-card__link mono-label"
       >
-        ↗ Live Demo
+        <span>Live Demo</span>
+        <span class="project-card__arrow">↗</span>
       </a>
     </div>
   </article>
@@ -63,14 +65,14 @@ defineProps({
   flex-direction: column;
   height: 100%;
   min-width: 0;
-  transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease;
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.28s ease, box-shadow 0.28s ease;
 }
 
 @media (hover: hover) and (pointer: fine) {
   .project-card:hover {
     transform: translateY(-4px);
     border-color: var(--accent-copper);
-    box-shadow: 0 10px 24px rgba(23, 23, 15, 0.08);
+    box-shadow: 0 12px 28px rgba(23, 23, 15, 0.09);
   }
 }
 
@@ -88,6 +90,7 @@ defineProps({
 
 .project-card__pin {
   color: var(--accent-signal);
+  letter-spacing: 0.16em;
 }
 
 .project-card__year {
@@ -120,6 +123,7 @@ defineProps({
   font-size: 0.94rem;
   margin-bottom: 1.25rem;
   flex-grow: 1;
+  line-height: 1.5;
 }
 
 .project-card__stack {
@@ -150,12 +154,23 @@ defineProps({
   min-height: 44px;
   display: inline-flex;
   align-items: center;
+  gap: 0.35rem;
   transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.project-card__arrow {
+  display: inline-block;
+  transition: transform 0.2s ease;
+  color: var(--accent-copper);
 }
 
 .project-card__link:hover {
   color: var(--accent-copper);
   border-color: var(--accent-copper);
+}
+
+.project-card__link:hover .project-card__arrow {
+  transform: translate(2px, -2px);
 }
 
 @media (max-width: 480px) {
