@@ -38,9 +38,22 @@ const { scrollToSection } = useSmoothScroll()
           </div>
         </div>
 
-        <p class="hero__tagline" data-reveal data-reveal-delay="2">{{ profile.tagline }}</p>
+        <!-- Main Focal Hero Visual on Mobile sits immediately after the title -->
+        <div class="hero__visual hero__visual--mobile-focus" data-reveal data-reveal-delay="2">
+          <!-- Render hero image or video if present, otherwise signature animated TechVisual -->
+          <MediaEmbed
+            v-if="profile.heroVideoUrl || profile.heroImageUrl"
+            class="hero__media-hero"
+            :image-url="profile.heroImageUrl"
+            :video-url="profile.heroVideoUrl"
+            :alt="profile.fullName"
+          />
+          <TechVisual v-else class="hero__tech-embed" />
+        </div>
 
-        <div class="hero__actions" data-reveal data-reveal-delay="3">
+        <p class="hero__tagline" data-reveal data-reveal-delay="3">{{ profile.tagline }}</p>
+
+        <div class="hero__actions" data-reveal data-reveal-delay="4">
           <button type="button" class="btn btn--primary" @click="scrollToSection('projects')">
             <span>View Projects</span>
             <span class="btn__arrow">→</span>
@@ -52,22 +65,18 @@ const { scrollToSection } = useSmoothScroll()
         </div>
       </div>
 
-      <!-- Right Side Signature Visual: Animated PCB / Circuit Schematic -->
-      <div class="hero__visual" data-reveal data-reveal-delay="3">
-        <TechVisual />
+      <!-- Desktop Signature Visual Column -->
+      <div class="hero__visual hero__visual--desktop-only" data-reveal data-reveal-delay="3">
+        <MediaEmbed
+          v-if="profile.heroVideoUrl || profile.heroImageUrl"
+          class="hero__media-hero"
+          :image-url="profile.heroImageUrl"
+          :video-url="profile.heroVideoUrl"
+          :alt="profile.fullName"
+        />
+        <TechVisual v-else class="hero__tech-embed" />
       </div>
     </div>
-
-    <!-- Optional Media Embed (video or image if present) -->
-    <MediaEmbed
-      v-if="profile.heroVideoUrl || profile.heroImageUrl"
-      class="hero__media"
-      data-reveal
-      data-reveal-delay="4"
-      :image-url="profile.heroImageUrl"
-      :video-url="profile.heroVideoUrl"
-      :alt="profile.fullName"
-    />
 
     <!-- Refined Bottom Information Strip -->
     <div class="spec-strip-wrap" data-reveal data-reveal-delay="5">
@@ -246,9 +255,19 @@ const { scrollToSection } = useSmoothScroll()
   width: 100%;
 }
 
-.hero__media {
-  margin-top: 2rem;
-  max-width: min(100%, 720px);
+.hero__visual--mobile-focus {
+  display: none; /* hidden on desktop, shown on mobile */
+}
+
+.hero__media-hero {
+  width: 100%;
+  max-width: 520px;
+  border: 1px solid var(--line-strong);
+  box-shadow: 0 8px 24px rgba(23, 23, 15, 0.08);
+}
+
+.hero__tech-embed {
+  width: 100%;
 }
 
 /* Refined Bottom Information Strip */
@@ -322,19 +341,26 @@ const { scrollToSection } = useSmoothScroll()
   width: 100%;
 }
 
-/* Media Queries for Responsive Hero */
+/* Comprehensive Responsive Media Queries for Mobile Devices */
 @media (max-width: 920px) {
   .hero__grid {
     grid-template-columns: minmax(0, 1fr);
-    gap: 2.25rem;
+    gap: 1.5rem;
   }
 
-  .hero__visual {
-    order: 2;
+  .hero__visual--desktop-only {
+    display: none;
   }
 
-  .hero__main {
-    order: 1;
+  .hero__visual--mobile-focus {
+    display: flex;
+    margin: 1.25rem 0;
+    width: 100%;
+    order: 2; /* Main focal image right after title */
+  }
+
+  .hero__tagline {
+    margin-top: 0.75rem;
   }
 
   .spec-strip {
@@ -357,15 +383,34 @@ const { scrollToSection } = useSmoothScroll()
   }
 }
 
+/* Mobile Devices (iPhone SE, iPhone 12/13/14/15/16, Android 320px-480px) */
 @media (max-width: 480px) {
   .hero {
-    padding-top: 1.5rem;
+    padding-top: 1.25rem;
     min-height: auto;
+  }
+
+  .hero__name {
+    font-size: clamp(2.2rem, 11vw, 3.2rem);
+  }
+
+  .hero__dim-line {
+    max-width: 60px;
+  }
+
+  .hero__visual--mobile-focus {
+    margin: 1rem 0;
+  }
+
+  .hero__media-hero {
+    max-height: min(45vh, 280px);
+    object-fit: cover;
   }
 
   .hero__actions {
     flex-direction: column;
     width: 100%;
+    gap: 0.65rem;
   }
 
   .btn {
@@ -385,6 +430,17 @@ const { scrollToSection } = useSmoothScroll()
 
   .spec-strip__col:first-child {
     border-top: none;
+  }
+}
+
+/* Ultra-compact mobile screens (320px - 360px like iPhone SE 1st/2nd Gen) */
+@media (max-width: 360px) {
+  .hero__name {
+    font-size: 2rem;
+  }
+
+  .hero__tagline {
+    font-size: 0.95rem;
   }
 }
 </style>
